@@ -2,6 +2,8 @@ import pandas as pd
 
 data = pd.read_html('https://www.officialcharts.com/chart-news/the-best-selling-albums-of-all-time-on-the-official-uk-chart__15551/', header=0)
 
+
+
 data[0] = data[0].rename(columns={'TITLE':'TYTUŁ', 'ARTIST':'ARTYSTA', 'YEAR':'ROK', 'HIGH POSN':'MAX POZ'})
 
 liczba_artystow = data[0]['ARTYSTA'].nunique()
@@ -22,10 +24,6 @@ najmlodszy_album_rok = data[0]['Rok'].max()
 
 najwczeniej_wydane_albumy = data[0].groupby('Artysta').agg(Rok=('Rok', 'min')).reset_index()
 
-
-
-
-
 print(data[0])
 print("\nLiczba pojedynczych artystów na liście:", liczba_artystow)
 print("\nNajczęściej występujące zespoły na liście:", najczestsze_zespoly.head(10))
@@ -34,3 +32,5 @@ print("\nLiczba albumów wydanych między 1960 a 1990 rokiem włącznie:", liczb
 print("\nNajmłodszy album na liście został wydany w roku:", najmlodszy_album_rok)
 print("\nLista najwcześniej wydanych albumów dla każdego artysty:")
 print(najwczeniej_wydane_albumy)
+
+najwczeniej_wydane_albumy.to_csv('albumy_wszechczasów.csv', index=False)
