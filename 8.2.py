@@ -12,6 +12,12 @@ data[0] = data[0].rename(columns=lambda x: x.title())
 
 data[0] = data[0].drop(columns='Max Poz')
 
+liczba_albumow_na_rok = data[0]['Rok'].value_counts()
+najczestszy_rok = liczba_albumow_na_rok.idxmax()
+
+albumy_1960_1990 = data[0][(data[0]['Rok'] >= 1960) & (data[0]['Rok'] <= 1990)]
+liczba_albumow_1960_1990 = len(albumy_1960_1990)
+
 
 
 
@@ -19,3 +25,5 @@ data[0] = data[0].drop(columns='Max Poz')
 print(data[0])
 print("\nLiczba pojedynczych artystów na liście:", liczba_artystow)
 print("\nNajczęściej występujące zespoły na liście:", najczestsze_zespoly.head(10))
+print("\nRok z największą liczbą albumów na liście:", najczestszy_rok)
+print("\nLiczba albumów wydanych między 1960 a 1990 rokiem włącznie:", liczba_albumow_1960_1990)
